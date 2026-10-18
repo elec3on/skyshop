@@ -1,4 +1,4 @@
-package org.skypro.skyshop.search;
+package org.skypro.skyshop.model.search;
 
 import org.skypro.skyshop.model.article.Article;
 import org.skypro.skyshop.model.product.Product;
@@ -16,15 +16,10 @@ public class SearchResult {
 
     public static SearchResult fromSearchable(Searchable s) {
         String idStr = s.getId().toString();
-        String name;
-        if (s instanceof Product p) {
-            name = p.getName();
-        } else if (s instanceof Article a) {
-            name = a.getTitle();
-        } else {
-            name = "Unknown";
-        }
-        return new SearchResult(idStr, name, s.getContentType());
+        String name = s.getName();          // полиморфно: у Product это name, у Article — title
+        String contentType = s.getContentType();
+
+        return new SearchResult(idStr, name, contentType);
     }
 
     public String getId() { return id; }

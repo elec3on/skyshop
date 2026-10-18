@@ -2,7 +2,7 @@ package org.skypro.skyshop.service;
 
 import org.skypro.skyshop.model.product.*;
 import org.skypro.skyshop.model.article.Article;
-import org.skypro.skyshop.search.Searchable;
+import org.skypro.skyshop.model.search.Searchable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
