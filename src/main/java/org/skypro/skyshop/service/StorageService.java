@@ -22,7 +22,6 @@ public class StorageService {
     }
 
     private void initData() {
-        // --- Товары как в App.java ---
         UUID idMilk = UUID.randomUUID();
         UUID idBread = UUID.randomUUID();
         UUID idSugar = UUID.randomUUID();
