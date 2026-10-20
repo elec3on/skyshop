@@ -45,6 +45,13 @@ public class StorageService {
         articles.put(art3, new Article(art3, "Сахар и соль", "Сахар и соль — самые популярные приправы на кухне."));
     }
 
+    /**
+     * Получает продукт по ID. Возвращает Optional, чтобы явно показать возможность отсутствия товара.
+     */
+    public Optional<Product> getProductById(UUID id) {
+        return Optional.ofNullable(products.get(id));
+    }
+
     public Collection<Product> getAllProducts() {
         return Collections.unmodifiableCollection(products.values());
     }
