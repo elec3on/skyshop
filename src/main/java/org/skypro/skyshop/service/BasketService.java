@@ -7,6 +7,8 @@ import org.skypro.skyshop.model.basket.ProductBasket;
 import org.skypro.skyshop.model.product.Product;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -30,13 +32,18 @@ public class BasketService {
     }
 
     public UserBasket getUserBasket() {
-        var basketMap = basket.getItems();
+        Map<UUID, Integer> basketMap = basket.getItems();
 
-        var items = basketMap.entrySet().stream()
+        List<BasketItem> items = basketMap.entrySet().stream()
                 .map(e -> {
-                    Product p = storageService.getProductById(e.getKey())
-                            .orElseThrow(() -> new IllegalStateException("Товар исчез из хранилища: " + e.getKey()));
-                    return new BasketItem(p, e.getValue());
+                    UUID productId = e.getKey();
+                    int quantity = e.getValue();
+
+                    // ИСПРАВЛЕНИЕ: используем NoSuchProductException вместо IllegalStateException
+                    Product p = storageService.getProductById(productId)
+                            .orElseThrow(() -> new NoSuchProductException(productId));
+
+                    return new BasketItem(p, quantity);
                 })
                 .collect(Collectors.toList());
 
